@@ -1,0 +1,32 @@
+name: Custom README Check and Time Logger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # позволяет запуск вручную
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Клонируем репозиторий
+        uses: actions/checkout@v4
+
+      - name: Проверяем наличие README.md
+        run: |
+          if [ -f "README.md" ]; then
+            echo "✅ README.md найден"
+          else
+            echo "❌ README.md отсутствует"
+            exit 1
+          fi
+
+      - name: Показываем текущую дату и время
+        run: date
+
+      - name: Имитируем сборку проекта
+        run: |
+          echo "Сборка проекта..."
+          sleep 3
+          echo "Сборка завершена"
